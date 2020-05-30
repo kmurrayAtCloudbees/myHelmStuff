@@ -23,7 +23,7 @@
    CSRF:
      # This needs to be set to true for some configurations
      ProxyCompatibility: true
-   JavaOpts: "Dcb.BeekeeperProp.disableIncrementalWizard=true -XX:+DisableExplicitGC -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -verbose:gc -Xloggc:/tmp/gc.log -XX:NumberOfGCLogFiles=2 -XX:+UseGCLogFileRotation -XX:GCLogFileSize=100m -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintReferenceGC -XX:+PrintAdaptiveSizePolicy -XX:ErrorFile=/tmp/hs_err_%p.log -XX:+LogVMOutput -XX:LogFile=/tmp"
+   JavaOpts: "-Dcb.BeekeeperProp.disableIncrementalWizard=true -XX:+DisableExplicitGC -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -verbose:gc -Xloggc:/tmp/gc.log -XX:NumberOfGCLogFiles=2 -XX:+UseGCLogFileRotation -XX:GCLogFileSize=100m -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintReferenceGC -XX:+PrintAdaptiveSizePolicy -XX:ErrorFile=/tmp/hs_err_%p.log -XX:+LogVMOutput -XX:LogFile=/tmp"
  Master:
    #Set Master Image here
    Image:
