@@ -4,11 +4,6 @@
  nginx-ingress:
    Enabled: false
  OperationsCenter:
-   # Set Image Version
-   Image:
-     dockerImage: cloudbees/cloudbees-cloud-core-oc:2.204.3.7
-     dockerPullPolicy: Always
-     longName: CloudBees Core - 2.204.3.7
    # Set the HostName for the Operation Center
    HostName: 'cloudbees-core-eksctl.kmedesign.com'
    # Setting ServiceType to ClusterIP creates ingress
@@ -23,15 +18,20 @@
    CSRF:
      # This needs to be set to true for some configurations
      ProxyCompatibility: true
-   JavaOpts: "-Dcb.BeekeeperProp.disableIncrementalWizard=true -XX:+DisableExplicitGC -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -verbose:gc -Xloggc:/tmp/gc.log -XX:NumberOfGCLogFiles=2 -XX:+UseGCLogFileRotation -XX:GCLogFileSize=100m -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintReferenceGC -XX:+PrintAdaptiveSizePolicy -XX:ErrorFile=/tmp/hs_err_%p.log -XX:+LogVMOutput -XX:LogFile=/tmp"
+   JavaOpts: "-Dcom.cloudbees.masterprovisioning.kubernetes.KubernetesMasterProvisioning.storageClassName=aws-efs -Dcb.BeekeeperProp.noFullUpgrade=true"
+   Tolerations:
+    - key: partition
+      operator: Equal
+      value: masters
+      effect: NoSchedule
+  NodeSelector:
+    partition: "masters"
+  Annotations:
+    cluster-autoscaler.kubernetes.io/safe-to-evict: "false"
+Persistence:
+  StorageClass: "aws-efs" 
  Master:
-   #Set Master Image here
-   Image:
-     dockerImage: cloudbees/cloudbees-core-mm:2.204.3.7
-     dockerPullPolicy: Always
-     longName: CloudBees Core - Managed Master - 2.204.3.7
-   JavaOpts: "-Dcb.BeekeeperProp.disableIncrementalWizard=true -XX:+DisableExplicitGC -XX:+UnlockDiagnosticVMOptions -XX:+UnlockExperimentalVMOptions -verbose:gc -Xloggc:/tmp/gc.log -XX:NumberOfGCLogFiles=2 -XX:+UseGCLogFileRotation -XX:GCLogFileSize=100m -XX:+PrintGC -XX:+PrintGCDateStamps -XX:+PrintGCDetails -XX:+PrintHeapAtGC -XX:+PrintGCCause -XX:+PrintTenuringDistribution -XX:+PrintReferenceGC -XX:+PrintAdaptiveSizePolicy -XX:ErrorFile=/tmp/hs_err_%p.log -XX:+LogVMOutput -XX:LogFile=/tmp"
-
+   JavaOpts: "-Dcb.BeekeeperProp.noFullUpgrade=true"
    
  
     
