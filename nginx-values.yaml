@@ -6,9 +6,6 @@ controller:
   ingressClass: "nginx"
   config:
     use-proxy-protocol: "true"
-  scope:
-    enabled: "true"
-    namespace: cloudbees-core
   service:
     targetPorts:
       http: http
